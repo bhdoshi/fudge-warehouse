@@ -1,0 +1,526 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/9/2018 3:16:36 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-E30JBHR"
+  DTS:CreatorName="DESKTOP-E30JBHR\bhaum"
+  DTS:DTSID="{9ED2F16B-CB50-4827-83BB-5857C38FFB4A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.1000.169"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package3"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{255370E5-FA1A-48F6-967F-BF81424B617D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E59993EC-867E-416F-9174-FA3B821666F8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F925561-0402-4330-BD61-7C4781228106}"
+          SQLTask:SqlStatementSource="truncate table stage_ff_account_billing;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Stage - stage_ff_account_billing"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3410B856-6BF1-40FD-BCE4-1626E61699F8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Stage - stage_ff_account_billing"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - Stage stage_ff_account_billing"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stage_ff_account_billing]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Connections[OleDbConnection]"
+                  connectionManagerID="{8F925561-0402-4330-BD61-7C4781228106}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.ist722_fudge_c6_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].Columns[ab_id]"
+                      cachedDataType="i4"
+                      cachedName="ab_id"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_id]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_id]" />
+                    <inputColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].Columns[ab_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ab_date"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_date]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_date]" />
+                    <inputColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].Columns[ab_account_id]"
+                      cachedDataType="i4"
+                      cachedName="ab_account_id"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_account_id]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_account_id]" />
+                    <inputColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].Columns[ab_plan_id]"
+                      cachedDataType="i4"
+                      cachedName="ab_plan_id"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_plan_id]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_plan_id]" />
+                    <inputColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].Columns[ab_billed_amount]"
+                      cachedDataType="cy"
+                      cachedName="ab_billed_amount"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_billed_amount]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_billed_amount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_id]"
+                      dataType="i4"
+                      name="ab_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_date]"
+                      dataType="dbTimeStamp"
+                      name="ab_date" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_account_id]"
+                      dataType="i4"
+                      name="ab_account_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_plan_id]"
+                      dataType="i4"
+                      name="ab_plan_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input].ExternalColumns[ab_billed_amount]"
+                      dataType="cy"
+                      name="ab_billed_amount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - ff_account_billing"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[ff_account_billing]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Connections[OleDbConnection]"
+                  connectionManagerID="{D5CDB8F3-9C60-4AB1-8040-368C5B0B1FE8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.fudgeflix_v3]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_id]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_id]"
+                      name="ab_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_date]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_date]"
+                      name="ab_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_account_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_account_id]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_account_id]"
+                      name="ab_account_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_plan_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_plan_id]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_plan_id]"
+                      name="ab_plan_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_billed_amount]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_billed_amount]"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].Columns[ab_billed_amount]"
+                      name="ab_billed_amount"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_id]"
+                      dataType="i4"
+                      name="ab_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_date]"
+                      dataType="dbTimeStamp"
+                      name="ab_date" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_account_id]"
+                      dataType="i4"
+                      name="ab_account_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_plan_id]"
+                      dataType="i4"
+                      name="ab_plan_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output].ExternalColumns[ab_billed_amount]"
+                      dataType="cy"
+                      name="ab_billed_amount" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_id]"
+                      name="ab_id" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_date]"
+                      name="ab_date" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_account_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_account_id]"
+                      name="ab_account_id" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_plan_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_plan_id]"
+                      name="ab_plan_id" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_billed_amount]"
+                      dataType="cy"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ab_billed_amount]"
+                      name="ab_billed_amount" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Stage - stage_ff_account_billing.Paths[OLE DB Source Output]"
+              endId="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{3E5806C8-8B78-4DE2-AC96-DBD6FD003241}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Stage - stage_ff_account_billing" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\Execute SQL Task"
+          TopLeft="218.857146584258,19.5764708627879" />
+        <NodeLayout
+          Size="229.6,41.6"
+          Id="Package\Stage - stage_ff_account_billing"
+          TopLeft="222.857146652377,105.835295601947" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="300.057146584258,61.1764708627879">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="37.6000000681196,44.6588247391592"
+              Start="0,0"
+              End="37.6000000681196,37.1588247391592">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.3294123695796" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.3294123695796"
+                    Point2="0,22.3294123695796"
+                    Point3="4,22.3294123695796" />
+                  <mssgle:LineSegment
+                    End="33.6000000681196,22.3294123695796" />
+                  <mssgle:CubicBezierSegment
+                    Point1="33.6000000681196,22.3294123695796"
+                    Point2="37.6000000681196,22.3294123695796"
+                    Point3="37.6000000681196,26.3294123695796" />
+                  <mssgle:LineSegment
+                    End="37.6000000681196,37.1588247391592" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Stage - stage_ff_account_billing">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="190.4,41.6"
+          Id="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing"
+          TopLeft="204.000003474099,20.18823557725" />
+        <NodeLayout
+          Size="252,41.6"
+          Id="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing"
+          TopLeft="175.428574416102,116.847060462265" />
+        <EdgeLayout
+          Id="Package\Stage - stage_ff_account_billing.Paths[OLE DB Source Output]"
+          TopLeft="300.314288945101,61.78823557725">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55.0588248850153"
+              Start="0,0"
+              End="0,47.5588248850153">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5588248850153" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage - stage_ff_account_billing\SRC - ff_account_billing">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage - stage_ff_account_billing\DST - Stage stage_ff_account_billing">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

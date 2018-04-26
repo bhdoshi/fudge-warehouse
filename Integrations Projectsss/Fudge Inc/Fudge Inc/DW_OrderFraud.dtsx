@@ -1,0 +1,2957 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/8/2018 5:36:09 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="IST-RL-BATMAN4"
+  DTS:CreatorName="AD\hfan02"
+  DTS:DTSID="{F8211F65-7F91-42F0-9CC8-E7D3EC04BA7E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0800.90"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="DW_OrderFraud"
+  DTS:PackageType="5"
+  DTS:VersionBuild="77"
+  DTS:VersionGUID="{43387EFA-E9F7-40F0-9413-9C8A3567F26A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DF - Stage to FactOrderFraud"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F50FED00-7760-48F4-9254-CDB4DB289730}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DF - Stage to FactOrderFraud"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DF - Stage to FactOrderFraud\Derived Column.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DF - Stage to FactOrderFraud\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Merge Join"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[customer_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[order_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_date"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[order_date]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[shipped_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="shipped_date"
+                      cachedSortKeyPosition="4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[shipped_date]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[ship_via]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ship_via"
+                      cachedSortKeyPosition="5"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[ship_via]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      cachedSortKeyPosition="6"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[creditcard_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Right Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Right Input].Columns[product_id]"
+                      cachedDataType="i4"
+                      cachedName="product_id"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[product_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Right Input].Columns[order_qty]"
+                      cachedDataType="i4"
+                      cachedName="order_qty"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[order_qty]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_id]"
+                      name="order_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[order_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[customer_id]"
+                      name="customer_id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_date]"
+                      name="order_date">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[order_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[shipped_date]"
+                      name="shipped_date">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[shipped_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[ship_via]"
+                      name="ship_via">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[ship_via]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[creditcard_id]"
+                      name="creditcard_id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input].Columns[creditcard_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[product_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[product_id]"
+                      name="product_id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Right Input].Columns[product_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_qty]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_qty]"
+                      name="order_qty">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Right Input].Columns[order_qty]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Merge Join 1"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join 1"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Left Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Left Input].Columns[creditcard_number]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="creditcard_number"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_number]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Left Input].Columns[creditcard_exp_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="creditcard_exp_date"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_exp_date]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Right Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Outputs[Sort Output].Columns[creditcard_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Right Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Outputs[Sort Output].Columns[customer_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Left Input].Columns[creditcard_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_number]"
+                      name="creditcard_number">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Left Input].Columns[creditcard_number]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_exp_date]"
+                      name="creditcard_exp_date">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Left Input].Columns[creditcard_exp_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[customer_id]"
+                      name="customer_id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Right Input].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Merge Join 2"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join 2"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">2</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[customer_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[order_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_date"
+                      cachedSortKeyPosition="5"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_date]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[shipped_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="shipped_date"
+                      cachedSortKeyPosition="6"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[shipped_date]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[ship_via]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ship_via"
+                      cachedSortKeyPosition="7"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[ship_via]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[creditcard_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[product_id]"
+                      cachedDataType="i4"
+                      cachedName="product_id"
+                      cachedSortKeyPosition="4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[product_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[order_qty]"
+                      cachedDataType="i4"
+                      cachedName="order_qty"
+                      cachedSortKeyPosition="8"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_qty]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_id]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input].Columns[creditcard_number]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="creditcard_number"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_number]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input].Columns[creditcard_exp_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="creditcard_exp_date"
+                      cachedSortKeyPosition="4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_exp_date]" />
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[customer_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[creditcard_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[order_id]"
+                      name="order_id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[order_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[customer_id (from orders)]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[customer_id (from orders)]"
+                      name="customer_id (from orders)"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[product_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[product_id]"
+                      name="product_id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[product_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[order_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[order_date]"
+                      name="order_date">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[order_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[shipped_date]"
+                      name="shipped_date">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[shipped_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[ship_via]"
+                      name="ship_via">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[ship_via]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[order_qty]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[order_qty]"
+                      name="order_qty">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input].Columns[order_qty]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[creditcard_number (from customer record)]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[creditcard_number (from customer record)]"
+                      name="creditcard_number (from customer record)">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input].Columns[creditcard_number]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[customer_id (from customer record)]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[customer_id (from customer record)]"
+                      name="customer_id (from customer record)">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output].Columns[creditcard_exp_date]"
+                      name="creditcard_exp_date">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input].Columns[creditcard_exp_date]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[customer_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input].Columns[order_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_date"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_date]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">5</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input].Columns[shipped_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="shipped_date"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[shipped_date]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">6</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input].Columns[ship_via]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ship_via"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[ship_via]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">7</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[creditcard_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input].Columns[product_id]"
+                      cachedDataType="i4"
+                      cachedName="product_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[product_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">4</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input].Columns[order_qty]"
+                      cachedDataType="i4"
+                      cachedName="order_qty"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_qty]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">8</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_id]"
+                      name="order_id"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[customer_id]"
+                      name="customer_id"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_date]"
+                      name="order_date"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[shipped_date]"
+                      name="shipped_date"
+                      sortKeyPosition="6">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[shipped_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[ship_via]"
+                      name="ship_via"
+                      sortKeyPosition="7">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[ship_via]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[creditcard_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[product_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[product_id]"
+                      name="product_id"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[product_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_qty]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output].Columns[order_qty]"
+                      name="order_qty"
+                      sortKeyPosition="8">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output].Columns[order_qty]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Sort 1"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort 1"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Sort 1.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort 1.Inputs[Sort Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort 1.Inputs[Sort Input].Columns[creditcard_number]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="creditcard_number"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_number]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort 1.Inputs[Sort Input].Columns[creditcard_exp_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="creditcard_exp_date"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_exp_date]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">4</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort 1.Inputs[Sort Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[customer_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_number]"
+                      name="creditcard_number"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_number]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[creditcard_exp_date]"
+                      name="creditcard_exp_date"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[creditcard_exp_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output].Columns[customer_id]"
+                      name="customer_id"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort for creditcards"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Inputs[Sort Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Inputs[Sort Input].Columns[creditcard_number]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="creditcard_number"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_number]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Inputs[Sort Input].Columns[creditcard_exp_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="creditcard_exp_date"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_exp_date]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_number]"
+                      name="creditcard_number"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_number]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output].Columns[creditcard_exp_date]"
+                      name="creditcard_exp_date"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_exp_date]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort for customer creditcard"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Inputs[Sort Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Inputs[Sort Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].Columns[customer_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Outputs[Sort Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Outputs[Sort Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Outputs[Sort Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Outputs[Sort Output].Columns[customer_id]"
+                      name="customer_id"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort for orderdetails"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Inputs[Sort Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[order_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Inputs[Sort Input].Columns[product_id]"
+                      cachedDataType="i4"
+                      cachedName="product_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[product_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Inputs[Sort Input].Columns[order_qty]"
+                      cachedDataType="i4"
+                      cachedName="order_qty"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[order_qty]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[order_id]"
+                      name="order_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[order_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[product_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[product_id]"
+                      name="product_id"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[product_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[order_qty]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output].Columns[order_qty]"
+                      name="order_qty"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[order_qty]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Sort for orders"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort for orders"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Inputs[Sort Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[order_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Inputs[Sort Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[customer_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Inputs[Sort Input].Columns[order_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_date"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[order_date]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Inputs[Sort Input].Columns[shipped_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="shipped_date"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[shipped_date]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">4</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Inputs[Sort Input].Columns[ship_via]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ship_via"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[ship_via]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">5</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Inputs[Sort Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[creditcard_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">6</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[order_id]"
+                      name="order_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[order_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[customer_id]"
+                      name="customer_id"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[order_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[order_date]"
+                      name="order_date"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[order_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[shipped_date]"
+                      name="shipped_date"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[shipped_date]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[ship_via]"
+                      name="ship_via"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[ship_via]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      sortKeyPosition="6">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[creditcard_id]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Stage - stage_fm_creditcards"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stage_creditcards]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Connections[OleDbConnection]"
+                  connectionManagerID="{C41EA459-D0F6-48AA-84B5-474B30BA2D72}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.ist722_fudge_c6_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_number]"
+                      length="50"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_number]"
+                      name="creditcard_number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_exp_date]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_exp_date]"
+                      name="creditcard_exp_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      dataType="i4"
+                      name="creditcard_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="creditcard_number" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      name="creditcard_exp_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      name="creditcard_id" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[creditcard_number]"
+                      name="creditcard_number" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[creditcard_exp_date]"
+                      name="creditcard_exp_date" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Stage - stage_fm_customer_creditcards"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stage_fm_customer_creditcard]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Connections[OleDbConnection]"
+                  connectionManagerID="{C41EA459-D0F6-48AA-84B5-474B30BA2D72}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.ist722_fudge_c6_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      name="customer_id"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      dataType="i4"
+                      name="creditcard_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      name="creditcard_id" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      name="customer_id" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Stage - stage_fm_orderdetails"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stage_order_details]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Connections[OleDbConnection]"
+                  connectionManagerID="{C41EA459-D0F6-48AA-84B5-474B30BA2D72}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.ist722_fudge_c6_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[order_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[order_id]"
+                      name="order_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[product_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].ExternalColumns[product_id]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[product_id]"
+                      name="product_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[order_qty]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].ExternalColumns[order_qty]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].Columns[order_qty]"
+                      name="order_qty"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      dataType="i4"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].ExternalColumns[product_id]"
+                      dataType="i4"
+                      name="product_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output].ExternalColumns[order_qty]"
+                      dataType="i4"
+                      name="order_qty" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      name="order_id" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[product_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[product_id]"
+                      name="product_id" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[order_qty]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[order_qty]"
+                      name="order_qty" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Stage - stage_fm_orders"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stage_fm_orders]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Connections[OleDbConnection]"
+                  connectionManagerID="{C41EA459-D0F6-48AA-84B5-474B30BA2D72}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.ist722_fudge_c6_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[order_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[order_id]"
+                      name="order_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      name="customer_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[order_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[order_date]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[order_date]"
+                      name="order_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[shipped_date]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[shipped_date]"
+                      name="shipped_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[ship_via]"
+                      length="20"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[ship_via]"
+                      name="ship_via"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      dataType="i4"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[order_date]"
+                      dataType="dbTimeStamp"
+                      name="order_date" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      name="shipped_date" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ship_via" />
+                    <externalMetadataColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      dataType="i4"
+                      name="creditcard_id" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      name="order_id" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      name="customer_id" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[order_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[order_date]"
+                      name="order_date" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[shipped_date]"
+                      name="shipped_date" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[ship_via]"
+                      name="ship_via" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      name="creditcard_id" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Merge Join Output]"
+              endId="Package\DF - Stage to FactOrderFraud\Sort 1.Inputs[Sort Input]"
+              name="Merge Join Output"
+              startId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Merge Join Output1]"
+              endId="Package\DF - Stage to FactOrderFraud\Sort.Inputs[Sort Input]"
+              name="Merge Join Output"
+              startId="Package\DF - Stage to FactOrderFraud\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Merge Join Output2]"
+              endId="Package\DF - Stage to FactOrderFraud\Derived Column.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[OLE DB Source Output]"
+              endId="Package\DF - Stage to FactOrderFraud\Sort for orders.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[OLE DB Source Output1]"
+              endId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[OLE DB Source Output2]"
+              endId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[OLE DB Source Output3]"
+              endId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Sort Output]"
+              endId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\DF - Stage to FactOrderFraud\Sort for orders.Outputs[Sort Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Sort Output1]"
+              endId="Package\DF - Stage to FactOrderFraud\Merge Join.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\DF - Stage to FactOrderFraud\Sort for orderdetails.Outputs[Sort Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Sort Output2]"
+              endId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\DF - Stage to FactOrderFraud\Sort for creditcards.Outputs[Sort Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Sort Output3]"
+              endId="Package\DF - Stage to FactOrderFraud\Merge Join 1.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard.Outputs[Sort Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Sort Output4]"
+              endId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\DF - Stage to FactOrderFraud\Sort.Outputs[Sort Output]" />
+            <path
+              refId="Package\DF - Stage to FactOrderFraud.Paths[Sort Output5]"
+              endId="Package\DF - Stage to FactOrderFraud\Merge Join 2.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\DF - Stage to FactOrderFraud\Sort 1.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="218.666666666667,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud"
+          TopLeft="59.9999991059303,8.66666651169465" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DF - Stage to FactOrderFraud">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="196.666666666667,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders"
+          TopLeft="21.6666663438081,26.5571423822641" />
+        <NodeLayout
+          Size="266.666666666667,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards"
+          TopLeft="722.36110634067,29.0694439246423" />
+        <NodeLayout
+          Size="169.333333333334,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Sort for creditcards"
+          TopLeft="508.583326609184,101.616664849619" />
+        <NodeLayout
+          Size="173.333333333334,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Sort for orderdetails"
+          TopLeft="281.547614852233,101.399998186827" />
+        <NodeLayout
+          Size="221.333333333334,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails"
+          TopLeft="235.119044115501,25.9999995350838" />
+        <NodeLayout
+          Size="212,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Sort for customer creditcard"
+          TopLeft="753.194439363562,108.333331396182" />
+        <NodeLayout
+          Size="148,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Sort for orders"
+          TopLeft="48.2142849958368,97.8095220605532" />
+        <NodeLayout
+          Size="131.333333333334,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Merge Join"
+          TopLeft="300.333329036832,211.466662885348" />
+        <NodeLayout
+          Size="217.333333333334,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards"
+          TopLeft="484.166659452021,26.8666661862532" />
+        <NodeLayout
+          Size="140,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Merge Join 1"
+          TopLeft="632.013885613738,218.833329420289" />
+        <NodeLayout
+          Size="108,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Sort 1"
+          TopLeft="648.124992030984,301.166661281387" />
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Derived Column"
+          TopLeft="462.083326447755,467.43332852145" />
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Merge Join Output]"
+          TopLeft="702.069438822361,261.499996086956">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.6666651944312"
+              Start="0,0"
+              End="0,32.1666651944312">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.1666651944312" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Sort Output3]"
+          TopLeft="859.194439363562,150.999998062849">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-135.180553749825,67.8333313574394"
+              Start="0,0"
+              End="-135.180553749825,60.3333313574394">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.2401118222098" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.2401118222098"
+                    Point2="0,40.2401118222098"
+                    Point3="-4,40.2401118222098" />
+                  <mssgle:LineSegment
+                    End="-131.180553749825,40.2401118222098" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-131.180553749825,40.2401118222098"
+                    Point2="-135.180553749825,40.2401118222098"
+                    Point3="-135.180553749825,44.2401118222098" />
+                  <mssgle:LineSegment
+                    End="-135.180553749825,60.3333313574394" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Sort Output2]"
+          TopLeft="593.249993275851,144.283331516286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="86.7638923378871,74.5499979040028"
+              Start="0,0"
+              End="86.7638923378871,67.0499979040028">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.2245750277982" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,40.2245750277982"
+                    Point2="0,44.2245750277982"
+                    Point3="4,44.2245750277982" />
+                  <mssgle:LineSegment
+                    End="82.7638923378871,44.2245750277982" />
+                  <mssgle:CubicBezierSegment
+                    Point1="82.7638923378871,44.2245750277982"
+                    Point2="86.7638923378871,44.2245750277982"
+                    Point3="86.7638923378871,48.2245750277982" />
+                  <mssgle:LineSegment
+                    End="86.7638923378871,67.0499979040028" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Sort Output1]"
+          TopLeft="368.214281518899,144.066664853493">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="18.3412697401548,67.3999980318547"
+              Start="0,0"
+              End="18.3412697401548,59.8999980318547">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.9532586126641" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.9532586126641"
+                    Point2="0,39.9532586126641"
+                    Point3="4,39.9532586126641" />
+                  <mssgle:LineSegment
+                    End="14.3412697401548,39.9532586126641" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.3412697401548,39.9532586126641"
+                    Point2="18.3412697401548,39.9532586126641"
+                    Point3="18.3412697401548,43.9532586126641" />
+                  <mssgle:LineSegment
+                    End="18.3412697401548,59.8999980318547" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Sort Output]"
+          TopLeft="122.214284995837,140.47618872722">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="223.230155152106,70.9904741581282"
+              Start="0,0"
+              End="223.230155152106,63.4904741581282">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.0816150726718" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.0816150726718"
+                    Point2="0,42.0816150726718"
+                    Point3="4,42.0816150726718" />
+                  <mssgle:LineSegment
+                    End="219.230155152106,42.0816150726718" />
+                  <mssgle:CubicBezierSegment
+                    Point1="219.230155152106,42.0816150726718"
+                    Point2="223.230155152106,42.0816150726718"
+                    Point3="223.230155152106,46.0816150726718" />
+                  <mssgle:LineSegment
+                    End="223.230155152106,63.4904741581282" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[OLE DB Source Output3]"
+          TopLeft="857.444439518783,71.7361105913089">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.5972208048735"
+              Start="0,0"
+              End="0,29.0972208048735">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.0972208048735" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[OLE DB Source Output2]"
+          TopLeft="593.041659697269,69.5333328529199">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.0833319966992"
+              Start="0,0"
+              End="0,24.5833319966992">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5833319966992" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[OLE DB Source Output1]"
+          TopLeft="345.785710782167,68.6666662017505">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.428570736732,32.7333319850762"
+              Start="0,0"
+              End="22.428570736732,25.2333319850762">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.3666659925381" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.3666659925381"
+                    Point2="0,16.3666659925381"
+                    Point3="4,16.3666659925381" />
+                  <mssgle:LineSegment
+                    End="18.428570736732,16.3666659925381" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.428570736732,16.3666659925381"
+                    Point2="22.428570736732,16.3666659925381"
+                    Point3="22.428570736732,20.3666659925381" />
+                  <mssgle:LineSegment
+                    End="22.428570736732,25.2333319850762" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[OLE DB Source Output]"
+          TopLeft="121.107142336489,69.2238090489308">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.5857130116224"
+              Start="0,0"
+              End="0,21.0857130116224">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.0857130116224" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="98.6666666666667,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Sort"
+          TopLeft="325.833328478038,300.333331396182" />
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Merge Join Output1]"
+          TopLeft="365.999995703499,254.133329552015">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.16666610787297,46.2000018441678"
+              Start="0,0"
+              End="9.16666610787297,38.7000018441678">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.1000009220839" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.1000009220839"
+                    Point2="0,23.1000009220839"
+                    Point3="4,23.1000009220839" />
+                  <mssgle:LineSegment
+                    End="5.16666610787297,23.1000009220839" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.16666610787297,23.1000009220839"
+                    Point2="9.16666610787297,23.1000009220839"
+                    Point3="9.16666610787297,27.1000009220839" />
+                  <mssgle:LineSegment
+                    End="9.16666610787297,38.7000018441678" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="140,42.6666666666667"
+          Id="Package\DF - Stage to FactOrderFraud\Merge Join 2"
+          TopLeft="469.499996560315,393.933332202037" />
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Sort Output4]"
+          TopLeft="375.166661811372,342.999998062849">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="142.333334748944,50.9333341391881"
+              Start="0,0"
+              End="142.333334748944,43.4333341391881">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.2146897435862" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.2146897435862"
+                    Point2="0,30.2146897435862"
+                    Point3="4,30.2146897435862" />
+                  <mssgle:LineSegment
+                    End="138.333334748944,30.2146897435862" />
+                  <mssgle:CubicBezierSegment
+                    Point1="138.333334748944,30.2146897435862"
+                    Point2="142.333334748944,30.2146897435862"
+                    Point3="142.333334748944,34.2146897435862" />
+                  <mssgle:LineSegment
+                    End="142.333334748944,43.4333341391881" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Sort Output5]"
+          TopLeft="702.124992030984,343.833327948054">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-140.624995470668,50.1000042539836"
+              Start="0,0"
+              End="-140.624995470668,42.6000042539836">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.7203415066005" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.7203415066005"
+                    Point2="0,29.7203415066005"
+                    Point3="-4,29.7203415066005" />
+                  <mssgle:LineSegment
+                    End="-136.624995470668,29.7203415066005" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-136.624995470668,29.7203415066005"
+                    Point2="-140.624995470668,29.7203415066005"
+                    Point3="-140.624995470668,33.7203415066005" />
+                  <mssgle:LineSegment
+                    End="-140.624995470668,42.6000042539836" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DF - Stage to FactOrderFraud.Paths[Merge Join Output2]"
+          TopLeft="539.458328170702,436.599998868704">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.8333296527461"
+              Start="0,0"
+              End="0,23.3333296527461">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.3333296527461" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,3.66666482637305,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orders">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_customer_creditcards">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_orderdetails">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DF - Stage to FactOrderFraud\Stage - stage_fm_creditcards">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

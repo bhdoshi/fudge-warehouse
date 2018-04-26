@@ -1,0 +1,1388 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/6/2018 12:48:04 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-E30JBHR"
+  DTS:CreatorName="DESKTOP-E30JBHR\bhaum"
+  DTS:DTSID="{5BF734F6-13C4-449B-BAAA-1DF5C6E53277}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.1000.169"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{502295DE-1EDC-407E-82DB-32D86A54C9E7}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{011C0ABB-E4CD-47E0-8738-BF1F4D9536A0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F925561-0402-4330-BD61-7C4781228106}"
+          SQLTask:SqlStatementSource="truncate table stage_fm_orders;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Stage - fm_creditcards"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D27FF143-ECE2-4237-B75D-5511FA2C7420}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Stage - fm_creditcards"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - Stage stage_creditcards"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stage_creditcards]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Connections[OleDbConnection]"
+                  connectionManagerID="{8F925561-0402-4330-BD61-7C4781228106}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.ist722_fudge_c6_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      externalMetadataColumnId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].ExternalColumns[creditcard_id]"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_id]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].Columns[creditcard_number]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="creditcard_number"
+                      externalMetadataColumnId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].ExternalColumns[creditcard_number]"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_number]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].Columns[creditcard_exp_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="creditcard_exp_date"
+                      externalMetadataColumnId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].ExternalColumns[creditcard_exp_date]"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_exp_date]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].ExternalColumns[creditcard_id]"
+                      dataType="i4"
+                      name="creditcard_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].ExternalColumns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="creditcard_number" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input].ExternalColumns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      name="creditcard_exp_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Stage - fm_creditcards\SRC - Credit Cards"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Credit Cards"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[fm_creditcards]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Connections[OleDbConnection]"
+                  connectionManagerID="{E24DF9AA-1504-4591-8FF9-7D962357D8DF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.fudgemart_v3]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_number]"
+                      length="50"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_number]"
+                      name="creditcard_number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_exp_date]"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].Columns[creditcard_exp_date]"
+                      name="creditcard_exp_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      dataType="i4"
+                      name="creditcard_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="creditcard_number" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output].ExternalColumns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      name="creditcard_exp_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      name="creditcard_id" />
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[creditcard_number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[creditcard_number]"
+                      name="creditcard_number" />
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[creditcard_exp_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[creditcard_exp_date]"
+                      name="creditcard_exp_date" />
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Stage - fm_creditcards.Paths[OLE DB Source Output]"
+              endId="Package\Stage - fm_creditcards\DST - Stage stage_creditcards.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Stage - fm_creditcards\SRC - Credit Cards.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Stage - fm_orders"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{EF3D2144-CEEC-4232-9D16-5FB35A27B36D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Stage - fm_orders"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - Stage stage_fm_orders"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stage_fm_orders]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Connections[OleDbConnection]"
+                  connectionManagerID="{8F925561-0402-4330-BD61-7C4781228106}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.ist722_fudge_c6_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      externalMetadataColumnId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[order_id]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      externalMetadataColumnId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[customer_id]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[customer_id]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].Columns[order_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="order_date"
+                      externalMetadataColumnId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[order_date]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[order_date]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].Columns[shipped_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="shipped_date"
+                      externalMetadataColumnId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[shipped_date]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[shipped_date]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].Columns[ship_via]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ship_via"
+                      externalMetadataColumnId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[ship_via]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[ship_via]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].Columns[creditcard_id]"
+                      cachedDataType="i4"
+                      cachedName="creditcard_id"
+                      externalMetadataColumnId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[creditcard_id]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[creditcard_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[order_id]"
+                      dataType="i4"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[order_date]"
+                      dataType="dbTimeStamp"
+                      name="order_date" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      name="shipped_date" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ship_via" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input].ExternalColumns[creditcard_id]"
+                      dataType="i4"
+                      name="creditcard_id" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Stage - fm_orders\SRC - Mart_Orders"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Mart_Orders"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[fm_orders]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage - fm_orders\SRC - Mart_Orders.Connections[OleDbConnection]"
+                  connectionManagerID="{E24DF9AA-1504-4591-8FF9-7D962357D8DF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.fudgemart_v3]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[order_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[order_id]"
+                      name="order_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      name="customer_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[order_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[order_date]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[order_date]"
+                      name="order_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[shipped_date]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[shipped_date]"
+                      name="shipped_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[ship_via]"
+                      length="20"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[ship_via]"
+                      name="ship_via"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].Columns[creditcard_id]"
+                      name="creditcard_id"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      dataType="i4"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[order_date]"
+                      dataType="dbTimeStamp"
+                      name="order_date" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      name="shipped_date" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ship_via" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output].ExternalColumns[creditcard_id]"
+                      dataType="i4"
+                      name="creditcard_id" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      name="order_id" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      name="customer_id" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[order_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[order_date]"
+                      name="order_date" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[shipped_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[shipped_date]"
+                      name="shipped_date" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[ship_via]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[ship_via]"
+                      name="ship_via" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[creditcard_id]"
+                      name="creditcard_id" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Stage - fm_orders.Paths[OLE DB Source Output]"
+              endId="Package\Stage - fm_orders\DST - Stage stage_fm_orders.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Stage - fm_orders\SRC - Mart_Orders.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Stage - fm_order_details"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E5C8BD49-AD76-4377-AFBD-67540BAA46EF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Stage - fm_order_details"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - Stage stage_orderDetails"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stage_order_details]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Connections[OleDbConnection]"
+                  connectionManagerID="{8F925561-0402-4330-BD61-7C4781228106}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.ist722_fudge_c6_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].Columns[order_id]"
+                      cachedDataType="i4"
+                      cachedName="order_id"
+                      externalMetadataColumnId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].ExternalColumns[order_id]"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].Columns[product_id]"
+                      cachedDataType="i4"
+                      cachedName="product_id"
+                      externalMetadataColumnId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].ExternalColumns[product_id]"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[product_id]" />
+                    <inputColumn
+                      refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].Columns[order_qty]"
+                      cachedDataType="i4"
+                      cachedName="order_qty"
+                      externalMetadataColumnId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].ExternalColumns[order_qty]"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[order_qty]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].ExternalColumns[order_id]"
+                      dataType="i4"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].ExternalColumns[product_id]"
+                      dataType="i4"
+                      name="product_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input].ExternalColumns[order_qty]"
+                      dataType="i4"
+                      name="order_qty" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Mart OrderDetails"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[fm_order_details]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Connections[OleDbConnection]"
+                  connectionManagerID="{E24DF9AA-1504-4591-8FF9-7D962357D8DF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[ist-cs-dw1.ad.syr.edu.fudgemart_v3]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[order_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[order_id]"
+                      name="order_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[product_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].ExternalColumns[product_id]"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[product_id]"
+                      name="product_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[order_qty]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].ExternalColumns[order_qty]"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].Columns[order_qty]"
+                      name="order_qty"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      dataType="i4"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].ExternalColumns[product_id]"
+                      dataType="i4"
+                      name="product_id" />
+                    <externalMetadataColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output].ExternalColumns[order_qty]"
+                      dataType="i4"
+                      name="order_qty" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      name="order_id" />
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[product_id]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[product_id]"
+                      name="product_id" />
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[order_qty]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[order_qty]"
+                      name="order_qty" />
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Stage - fm_order_details.Paths[OLE DB Source Output]"
+              endId="Package\Stage - fm_order_details\DST - Stage stage_orderDetails.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Stage - fm_order_details\SRC - Mart OrderDetails.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{804E5A30-C946-407A-A13F-024694C6377A}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Stage - fm_orders" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{37ACAE2A-C71E-4AAC-B2F9-014F0B9FEF9F}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Stage - fm_creditcards" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{AFD51741-5F51-429F-AA56-F4D9D2D40F95}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Stage - fm_order_details" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\Execute SQL Task"
+          TopLeft="224.22857468858,28.7529415797197" />
+        <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Stage - fm_creditcards"
+          TopLeft="424.22857809456,129.898041037457" />
+        <NodeLayout
+          Size="195.2,41.6"
+          Id="Package\Stage - fm_order_details"
+          TopLeft="205.561907704022,129.490197894482" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\Stage - fm_orders"
+          TopLeft="28.2285713507204,129.69411946597" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="266.82857468858,70.3529415797197">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-157.00000333786,59.3411778862502"
+              Start="0,0"
+              End="-157.00000333786,51.8411778862502">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.419500629679" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.419500629679"
+                    Point2="0,20.419500629679"
+                    Point3="-4,20.419500629679" />
+                  <mssgle:LineSegment
+                    End="-153.00000333786,20.419500629679" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-153.00000333786,20.419500629679"
+                    Point2="-157.00000333786,20.419500629679"
+                    Point3="-157.00000333786,24.419500629679" />
+                  <mssgle:LineSegment
+                    End="-157.00000333786,51.8411778862502" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="344.02857468858,70.3529415797197">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="172.60000340598,59.5450994577373"
+              Start="0,0"
+              End="172.60000340598,52.0450994577373">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.4896707342456" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.4896707342456"
+                    Point2="0,20.4896707342456"
+                    Point3="4,20.4896707342456" />
+                  <mssgle:LineSegment
+                    End="168.60000340598,20.4896707342456" />
+                  <mssgle:CubicBezierSegment
+                    Point1="168.60000340598,20.4896707342456"
+                    Point2="172.60000340598,20.4896707342456"
+                    Point3="172.60000340598,24.4896707342456" />
+                  <mssgle:LineSegment
+                    End="172.60000340598,52.0450994577373" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="304.295241196301,70.3529415797197">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.1372563147623"
+              Start="0,0"
+              End="0,51.6372563147623">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.6372563147623" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Stage - fm_creditcards">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="165.6,41.6"
+          Id="Package\Stage - fm_creditcards\SRC - Credit Cards"
+          TopLeft="377.6,24" />
+        <NodeLayout
+          Size="220.8,41.6"
+          Id="Package\Stage - fm_creditcards\DST - Stage stage_creditcards"
+          TopLeft="346.4,101.6" />
+        <EdgeLayout
+          Id="Package\Stage - fm_creditcards.Paths[OLE DB Source Output]"
+          TopLeft="458.6,65.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36"
+              Start="0,0"
+              End="0,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage - fm_creditcards\DST - Stage stage_creditcards">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage - fm_creditcards\SRC - Credit Cards">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Stage - fm_order_details">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="191.2,41.6"
+          Id="Package\Stage - fm_order_details\SRC - Mart OrderDetails"
+          TopLeft="356,54.4" />
+        <NodeLayout
+          Size="226.4,41.6"
+          Id="Package\Stage - fm_order_details\DST - Stage stage_orderDetails"
+          TopLeft="343.2,136.8" />
+        <EdgeLayout
+          Id="Package\Stage - fm_order_details.Paths[OLE DB Source Output]"
+          TopLeft="454,96">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.8"
+              Start="0,0"
+              End="0,33.3">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.3" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage - fm_order_details\DST - Stage stage_orderDetails">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage - fm_order_details\SRC - Mart OrderDetails">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Stage - fm_orders">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="166.4,41.6"
+          Id="Package\Stage - fm_orders\SRC - Mart_Orders"
+          TopLeft="153.714288332024,48.9411771569698" />
+        <NodeLayout
+          Size="217.6,41.6"
+          Id="Package\Stage - fm_orders\DST - Stage stage_fm_orders"
+          TopLeft="128.571430760987,132.141178323818" />
+        <EdgeLayout
+          Id="Package\Stage - fm_orders.Paths[OLE DB Source Output]"
+          TopLeft="237.142859546506,90.5411771569698">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.6000011668486"
+              Start="0,0"
+              End="0,34.1000011668486">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.1000011668486" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage - fm_orders\DST - Stage stage_fm_orders">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Stage - fm_orders\SRC - Mart_Orders">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
